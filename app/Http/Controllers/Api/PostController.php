@@ -25,8 +25,30 @@ class PostController extends Controller
         return response()->json(
             [
                 'results' => $posts,
-                'success' => true // non obbligatorio
+                'success' => true // non obbligatorio, standard corso boolean
             ]
         );
+    }
+
+    public function show($slug)
+    {
+        $post = Post::where('slug', '=', $slug)->with(['category', 'tags'])->first();
+
+        // devo gestire il caso in cui l'utente richieda un URI posts/{slug-non-esistente} e quindi la query restituisca null
+        if($post) {
+            return response()->json(
+                [
+                    'results' => $post,
+                    'success' => true
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                    'results' => 'No result ',
+                    'success' => false
+                ]
+            );
+        }
     }
 }
