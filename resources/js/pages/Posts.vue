@@ -7,13 +7,13 @@
 
             <div class="row">
                 <div class="col-6" v-for="post in posts" :key="post.id">
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h5 class="card-title">{{post.title}}</h5>
-                            <p class="card-text">{{post.content}}</p>
-                            <a href="#" class="btn btn-primary">show post</a>
-                        </div>
-                    </div>
+                    <Post
+                        :title="post.title"
+                        :content="post.content"
+                        :slug="post.slug"
+                        :category="post.category"
+                        :tags="post.tags"
+                    />
                 </div>
             </div>
 
@@ -30,8 +30,14 @@
 </template>
 
 <script>
+import Post from '../components/Post';
+
 export default {
     name: 'Main',
+
+    components: {
+        Post
+    },
 
     data() {
         return {
@@ -47,6 +53,10 @@ export default {
 
     methods: {
         getPosts(apiPage) {
+            // con il parametro 'page' definiamo la chiamata localhost:8000/api/posts?page=numeroPagina
+            // la parte della chiamata relativa alle pagine viene recuperata in automatico dalla funzione
+            // di paginazione (paginate(2)) definita in PostController, che a sua volta ci restituisce
+            // tramite json il numero di elementi richiesti (2) all'interno della pagina richiesta (numeroPagina)
             axios.get('/api/posts', {
                 'params': {
                     'page': apiPage

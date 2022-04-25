@@ -1,5 +1,7 @@
 <template>
-    <h1>FOOTER</h1>
+    <footer>
+        <p class="text-center">Boolpress &hearts;</p>
+    </footer>
 </template>
 
 <script>

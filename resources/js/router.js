@@ -8,6 +8,7 @@ import About from './pages/About';
 import Contacts from './pages/Contacts';
 import Posts from './pages/Posts';
 import SinglePost from './pages/SinglePost';
+import NotFound from './pages/NotFound';
 
 const router = new VueRouter({
     // per navigare con url privi di #, che sarebbe il comportamento di default di vue router.
@@ -31,14 +32,23 @@ const router = new VueRouter({
             component: Contacts
         },
         {
-            path: '/posts',
-            name: 'posts',
+            path: '/blog',
+            name: 'blog',
             component: Posts
         },
         {
-            path: '/posts/:slug', // sintassi per valore dinamico che corrisponde a quella di laravel /posts/{slug}
+            // sintassi per valore dinamico che corrisponde a quella di laravel /blog/{slug}
+            // path: '/posts/:slug' equivale in Laravel a Route::get('/blog/{slug}, 'Api/PostController@show);
+            // quindi :parametro equivale a {parametro}
+            path: '/blog/:slug',
             name: 'single-post', // nome della rotta a livello di vue router
             component: SinglePost
+        },
+        {
+            // per tutte le corrispondenze non trovare (quindi da mettere per ultima)
+            path: '/:pathMatch(.*)*',
+            name: 'not-found',
+            component: NotFound
         }
     ]
 })
