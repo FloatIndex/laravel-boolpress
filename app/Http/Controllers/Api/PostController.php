@@ -19,8 +19,16 @@ class PostController extends Controller
         // in modo che vengano aggiunti al file json, che altrimenti conterrebbe solo il category_id
         // consente di chiedere in un'unica query tutte le informazioni necessarie al display dei post
         // $posts = Post::with(['category'])->get();
-
         $posts = Post::with(['category', 'tags'])->paginate(2);
+
+        // each funzione delle collection
+        $posts->each(function($post) {
+            if($post->cover){
+                $post->cover = url('storage/' . $post->cover); // url() restituisce l'url completo di qualsiasi file dentro la cartella public (cokme asset() per il backend)
+            } else {
+                $post->cover = url('img/filling-image.jpg');
+            }
+        });
 
         return response()->json(
             [
@@ -34,7 +42,16 @@ class PostController extends Controller
     // Route::get('/posts/{slug}', 'Api\PostController@show'); definita in api.php
     public function show($slug)
     {
-        $post = Post::where('slug', '=', $slug)->with(['category', 'tags'])->first();
+        // uso first() anziché get() perché per via dell'univocità dello slug sono sicura di trovare
+        // al massimo una sola corrispondenza; first restituisce un'istanza, mentre get una collection
+        // di istanze e, in questo caso, restituirebbe una collection contenente una sola istanza
+        $post = Post::where('slug', $slug)->with(['category', 'tags'])->first();
+
+        if($post->cover){
+            $post->cover = url('storage/' . $post->cover); // url() restituisce l'url completo di qualsiasi file dentro la cartella public (cokme asset() per il backend)
+        } else {
+            $post->cover = url('img/filling-image.jpg');
+        }
 
         // devo gestire il caso in cui l'utente richieda un URI posts/{slug-non-esistente} e quindi la query restituisca null
         if($post) {

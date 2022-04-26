@@ -28,13 +28,12 @@
                                 <td>{{$post->slug}}</td>
                                 <td>{{ !empty($post->category) ? $post->category->name : 'ND' }}</td> {{-- con category richiamo la funzione category() del model Post--}}
                                 <td>
-                                    {{-- {{ !empty($post->tags) ? $post->tags->name : 'ND' }} --}}
-                                    @if($post->tags->isNotEmpty())
+                                    @if($post->tags->isEmpty())
+                                        ND
+                                    @else
                                         @foreach ($post->tags as $tag)
                                             <span class="badge badge-info mb-1">{{$tag->name}}</span><br>
                                         @endforeach
-                                    @else
-                                        ND
                                     @endif
                                 </td>
                                 <td>

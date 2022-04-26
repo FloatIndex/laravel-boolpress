@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    // cambiato da 'local' a 'public' (storage/app/public) + comando php artisan storage:link che crea
+    // un collegamento tra la cartella public in storage e la cartella storage in public
+    'default' => env('FILESYSTEM_DRIVER', 'public'),
 
     /*
     |--------------------------------------------------------------------------

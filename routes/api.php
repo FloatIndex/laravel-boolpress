@@ -24,3 +24,5 @@ Route::get('/posts', 'Api\PostController@index');
 Route::get('/posts/{slug}', 'Api\PostController@show');
 // Route::resource per gestire tutte le funzioni CRUD
 // in questo caso in Api\PostController abbiamo solo la index e la show, quindi basta una get
+
+//Route::get('/posts/{slug}', 'Api\CategoryController@getRelatedPost');

@@ -1,6 +1,7 @@
 <template>
     <div class="card my-3">
         <div class="card-body">
+            <img class="card-img-top" :src="img" :alt="title">
             <h5 class="card-title">{{title}}</h5>
             <h4 class="card-text">{{category ? category.name : 'ND'}}</h4>
             <p class="card-text">{{truncateText(content)}}</p>
@@ -14,7 +15,7 @@
 export default {
     name: 'Post',
 
-    props: ['title', 'content', 'slug', 'category', 'tags'],
+    props: ['img', 'title', 'content', 'slug', 'category', 'tags'],
 
     methods: {
         truncateText(text) {

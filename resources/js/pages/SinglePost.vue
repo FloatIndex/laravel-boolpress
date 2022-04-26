@@ -1,10 +1,13 @@
 <template>
     <section class="container">
+
         <div class="row">
             <!-- dato che post può essere null, accedo al suo contenuto e lo stampo solo se non null -->
             <div class="col" v-if="post">
 
                 <h1>{{post.title}}</h1>
+
+                <img class="img-fluid" :src="post.cover" :alt="post.title">
 
                 <!-- il v-if gestisce il caso in cui la categoria sia null -->
                 <h4 v-if="post.category">
@@ -21,6 +24,15 @@
                 </ul>
             </div>
         </div>
+
+        <!-- <div class="row">
+            <div class="col">
+
+                <h1>Related posts:</h1>
+
+
+            </div>
+        </div> -->
         
         
     </section>

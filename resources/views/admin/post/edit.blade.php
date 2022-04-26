@@ -7,7 +7,7 @@
 
             <h1>Edit post</h1>
 
-            <form method="POST" action="{{ route('admin.posts.update', $post) }}">
+            <form method="POST" action="{{ route('admin.posts.update', $post) }}" enctype="multipart/form-data">
 
                 @csrf
                 @method('PUT')
@@ -15,6 +15,16 @@
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" id="title" name="title" value="{{old('title', $post->title)}}">
+                </div>
+
+                @if ($post->cover)
+                    <p>Previous image:</p>
+                    <img class="img-thumbnail" src="{{asset('storage/' . $post->cover)}}" alt="{{$post->title}}">
+                @endif
+
+                <div class="form-group">
+                    <label for="image">Cover image</label>
+                    <input type="file" class="form-control" id="image" name="image" value="{{old('title')}}">
                 </div>
 
                 <div class="form-group">

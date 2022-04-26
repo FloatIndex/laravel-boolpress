@@ -7,13 +7,24 @@
 
             <h1>Create a new post</h1>
 
-            <form method="POST" action="{{ route('admin.posts.store') }}">
+            <form method="POST" action="{{ route('admin.posts.store') }}" enctype="multipart/form-data">
 
                 @csrf
 
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Cover image</label>
+                    {{-- 
+                        cover rappresenta il path del file, che è quello che vogliamo salvare nel DB, mentre qui stiamo trasferendo il
+                        file vero e proprio, quindi il valore di name non è richiesto che sia cover perché non c'è corrispondenza diretta
+                        tra questo campo e quello del DB (nel controller viene recuperato il file. salvato, farsi restituire da laravel il
+                        path dove il file è salvato e salvare sul database il path)
+                    --}}
+                    <input type="file" class="form-control" id="image" name="image" value="{{old('title')}}">
                 </div>
 
                 <div class="form-group">
